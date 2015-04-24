@@ -22,6 +22,9 @@ var $botonvet = $('.botonp2');
 var $botonab = $('.botonab'); 
 var $bus_nombre=$('.bus_nombre'); 
 var $bus_tipo=$('.bus_tipo'); 
+var $boton_eliminar = $('.botoneliminar'); 
+var $boton_modificart = $('.botonmodificart');
+var $boton_modificard = $('.botonmodificard');  
  
 var $servidornom = $('.servidornom'); 
 
@@ -40,14 +43,12 @@ $botonvt.on('click', function() {
 $tweets.empty();
 $info.empty();
 $popu.empty();
-socket.emit('Vertweets');
     $paginai.fadeOut();
       $pagina1.show();
 $paginatabla.fadeOut();
   });
 
 $botonvet.on('click', function() {
-socket.emit('Vertabla');
       $paginai.fadeOut();
       $pagina1.fadeOut();
 $paginatabla.show();
@@ -62,6 +63,28 @@ descripcion: $('#bus_info_des input').val(),
 socket.emit('Nuevo_bus',contenido);
   });
 
+$boton_eliminar.on('click', function() {
+var contenido={     
+    placa: $('#bus_placa_eliminar input').val(),
+};
+socket.emit('bus_eliminar',contenido);
+  });
+
+$boton_modificart.on('click', function() {
+var contenido={     
+    placa: $('#bus_placa_modificar input').val(),
+    tipo:$('#bus_tipo_modificar input').val(),
+};
+socket.emit('bus_modificart',contenido);
+  });
+
+$boton_modificard.on('click', function() {
+var contenido={     
+    placa: $('#bus_placa_modificar input').val(),
+    descripcion:$('#bus_des_modificar input').val(),
+};
+socket.emit('bus_modificard',contenido);
+  });
 
 
 $(function () {
