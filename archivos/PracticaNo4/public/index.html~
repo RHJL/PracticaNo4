@@ -158,10 +158,13 @@
             <section id="bus_info_nombre">
           <input name="bus_nombre" size="50" type="text" placeholder="Escriba el nombre del bus" />
       </section>
-<div id="bus_info_nombre">
+<section id="bus_info_tipo">
           <input name="bus_tipo" size="50" type="text" placeholder="Escriba el tipo del bus" />
- </div>
-<div id="bus_info_tipo">
+ </section>
+<section id="bus_info_des">
+          <input name="bus_des" size="300" type="text" placeholder="Escriba el tipo del bus" />
+ </section>
+<div id="bus_info">
 <button type="submit" class="botonab">Añadir bus</button>
 </div>
         </div> <!-- END #bottom_content -->

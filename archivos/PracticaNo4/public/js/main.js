@@ -54,7 +54,12 @@ $paginatabla.show();
   });
 
 $botonab.on('click', function() {
-socket.emit('Nuevo_bus',$('#bus_info_nombre input').val());
+var contenido={     
+    nombre: $('#bus_info_nombre input').val(),
+    tipo: $('#bus_info_tipo input').val(),
+descripcion: $('#bus_info_des input').val(),
+};
+socket.emit('Nuevo_bus',contenido);
   });
 
 
