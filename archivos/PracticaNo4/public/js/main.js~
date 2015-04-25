@@ -23,8 +23,8 @@ var $botonab = $('.botonab');
 var $bus_nombre=$('.bus_nombre'); 
 var $bus_tipo=$('.bus_tipo'); 
 var $boton_eliminar = $('.botoneliminar'); 
-var $boton_modificart = $('.botomodificart');
-var $boton_modificard = $('.botomodificard');  
+var $boton_modificart = $('.botonmodificart');
+var $boton_modificard = $('.botonmodificard');  
  
 var $servidornom = $('.servidornom'); 
 
@@ -40,6 +40,7 @@ $paginatabla.fadeOut();
   });
 
 $botonvt.on('click', function() {
+socket.emit('Rutas');
 $tweets.empty();
 $info.empty();
 $popu.empty();
@@ -110,6 +111,32 @@ function addtweetElement (el, options) {
     $tweets[0].scrollTop = $tweets[0].scrollHeight;
   }
 
+socket.on('nuevaruta', function (data) {
+var $nombrer=$('<td  class="Nombrer"/>')
+      .text(data.ruta);
+var $placabus=$('<td rowspan="'+data.numero+'" class="Bus"/>')
+      .text(data.bus);
+ var $procesofila = $('<tr class="Ruta"/>');
+$rutafila.append($nombrer);
+$rutafila.append($placabus);
+int contador=0;
+while(contador<data.numero){
+var $punto=$('<td class="punto"/>')
+      .text(data.puntos[contador].punto);
+$rutafila.append($punto);
+var $punto2=$('<td class="punto2"/>')
+      .text(data.puntos[contador].punto2);
+$rutafila.append($punto2);
+var $distancia=$('<td class="distancia"/>')
+      .text(data.puntos[contador].distancia);
+$rutafila.append($distancia);
+contador++;
+}
+ $tablap.append($rutafila);
+  }); 
+
+
+
 socket.on('usuarionum', function (data) {
  var $numerou = $('<li class="Numerou"/>')
       .text('Numero de usuarios: '+data.numero);
@@ -136,19 +163,7 @@ socket.on('categoriapopu', function (data) {
       .text('Categoria con más tweets : '+data.cate);
  $popu.append($categoriap);
   }); 
-socket.on('procesonuevo', function (data) {
-var $nombrecol=$('<td class="Nombrep"/>')
-      .text(data.nombre);
-var $pidcol=$('<td class="Pidp"/>')
-      .text(data.pid);
-var $estadocol=$('<td class="Estadop"/>')
-      .text(data.estado);
- var $procesofila = $('<tr class="Proceso"/>');
-$procesofila.append($nombrecol);
-$procesofila.append($pidcol);
-$procesofila.append($estadocol);
- $tablap.append($procesofila);
-  }); 
+
 socket.on('consulta1', function (data) {
 addtweet(data);
 socket.emit('respuesta');

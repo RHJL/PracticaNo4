@@ -33,16 +33,11 @@
     
     </div> <!-- END #header -->
     
-    <div id="main_content">   
+  <div id="main_content">   
         <div id="slideshow_area">
         <div class="container">
         <div id="bottom_content">
-            <div id="testimonials">
-                <h3>Bienvenido</h3>
-                <p>Desde aquì podra adminstrar las rutas y los buses
-                <br />
-                <br />
-            </div> <!-- END #testimonials -->
+            <table class="tablap" BORDER=1 WIDTH=300 style="background:#0A4A82; color:white;"></table>
         </div> <!-- END #bottom_content -->
     </div> <!-- END #main_content -->
     <div id="footer">
@@ -162,7 +157,7 @@
           <input name="bus_tipo" size="50" type="text" placeholder="Escriba el tipo del bus" />
  </section>
 <section id="bus_info_des">
-          <input name="bus_des" size="150" type="text" placeholder="Escriba una descripcion del bus" />
+          <input name="bus_des" size="120" type="text" placeholder="Escriba una descripcion del bus" />
  </section>
 <div id="bus_info">
 <button type="submit" class="botonab">Añadir bus</button>
@@ -179,13 +174,16 @@
 <input name="bus_placa2" size="50" type="text" placeholder="Introduza la placa del bus a modifcar" />
 </section>
 <section id="bus_tipo_modificar">
-<input name="bus_tipo2" size="50" type="text" placeholder="Introduzca el nuevo tipo de placa" />
+<input name="bus_tipo2" size="50" type="text" placeholder="Introduzca el nuevo tipo de bus" />
 </section>
+<div id="bus_modificart">
+<button type="submit" class="botonmodificart">Modificar tipo de bus</button>
+</div>
 <section id="bus_des_modificar">
 <input name="bus_des2" size="50" type="text" placeholder="Introduzca la nueva descripciòn del bus" />
 </section>
-<div id="bus_modificar">
-<button type="submit" class="botonmodificar">Modificar bus</button>
+<div id="bus_modificard">
+<button type="submit" class="botonmodificard">Modificar descripcion de bus</button>
 </div>
 
         </div> <!-- END #bottom_content -->

@@ -40,6 +40,7 @@ $paginatabla.fadeOut();
   });
 
 $botonvt.on('click', function() {
+socket.emit('Rutas');
 $tweets.empty();
 $info.empty();
 $popu.empty();
@@ -110,6 +111,28 @@ function addtweetElement (el, options) {
     $tweets[0].scrollTop = $tweets[0].scrollHeight;
   }
 
+socket.on('nuevaruta', function (data) {
+var $nombrer=$('<td  class="Nombrer"/>')
+      .text(data.nombre_ruta);
+var $placabus=$('<td class="Bus"/>')
+      .text(data.placa_bus);
+var $punto=$('<td class="punto"/>')
+      .text(data.punto);
+var $punto2=$('<td class="punto2"/>')
+      .text(data.punto_siguiente);
+var $distancia=$('<td class="distancia"/>')
+      .text(data.distancia_kilometros);
+var $rutafila = $('<tr class="Ruta"/>');
+$rutafila.append($nombrer);
+$rutafila.append($placabus);
+$rutafila.append($punto);
+$rutafila.append($punto2);
+$rutafila.append($distancia);
+ $tablap.append($rutafila);
+  }); 
+
+
+
 socket.on('usuarionum', function (data) {
  var $numerou = $('<li class="Numerou"/>')
       .text('Numero de usuarios: '+data.numero);
@@ -136,19 +159,7 @@ socket.on('categoriapopu', function (data) {
       .text('Categoria con más tweets : '+data.cate);
  $popu.append($categoriap);
   }); 
-socket.on('procesonuevo', function (data) {
-var $nombrecol=$('<td class="Nombrep"/>')
-      .text(data.nombre);
-var $pidcol=$('<td class="Pidp"/>')
-      .text(data.pid);
-var $estadocol=$('<td class="Estadop"/>')
-      .text(data.estado);
- var $procesofila = $('<tr class="Proceso"/>');
-$procesofila.append($nombrecol);
-$procesofila.append($pidcol);
-$procesofila.append($estadocol);
- $tablap.append($procesofila);
-  }); 
+
 socket.on('consulta1', function (data) {
 addtweet(data);
 socket.emit('respuesta');

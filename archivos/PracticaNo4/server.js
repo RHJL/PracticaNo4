@@ -47,9 +47,10 @@ function f() {
 socket.on('Nuevo_bus',function (data){
 var id_tipo_bus;
 var query = client.query("SELECT id_tipo_bus FROM tipo_bus where nombre='"+data.tipo+"';", function(err, result) {
+if(result.rows.length!=0){
 	id_tipo_bus=result.rows[0].id_tipo_bus;
 client.query("INSERT INTO bus(placa,descripcion,id_tipo_bus) values($1, $2,$3)", [data.nombre,data.descripcion,id_tipo_bus]);
-    })
+    }})
 });
 
 socket.on('bus_eliminar',function (data){
@@ -69,6 +70,41 @@ client.query(modificacion); }
 socket.on('bus_modificard',function (data){
 var modificacion="UPDATE bus SET descripcion = '"+data.descripcion+"' WHERE placa = '"+data.placa+"';";
 client.query(modificacion);
+});
+
+socket.on('Rutas',function (){
+var encabezadojson={
+nombre_ruta:'Nombre de la ruta',
+placa_bus:'Placa del bus',
+punto:'Punto de inicio',
+punto_siguiente: 'Punto de destino',
+distancia_kilometros:'Distancia en kilometros'
+}
+socket.emit('nuevaruta', encabezadojson);
+var query = client.query("select distinct t.nombre_ruta, t.placa_bus, t.punto1 as punto,p.nombre as punto_siguiente,t.distancia_kilometro from  (select distinct rp.id_ruta,rp.id_punto_siguiente,r.nombre as nombre_ruta, b.placa as placa_bus, p.nombre as punto1, rp.distancia_kilometro from ruta r,bus b,punto p, ruta_punto rp where rp.id_ruta=r.id_ruta and b.id_bus=r.id_bus and p.id_punto=rp.id_punto) t left join punto p on p.id_punto=t.id_punto_siguiente order by t.nombre_ruta;", function(err, result) {
+if(result.rows.length!=0){
+var contador=0;
+while(contador<result.rows.length){
+if(result.rows[contador].punto_siguiente==null){
+var ps='Fin';
+}
+else {
+ps=result.rows[contador].punto_siguiente;
+}
+var rutajson={
+nombre_ruta:result.rows[contador].nombre_ruta,
+placa_bus:result.rows[contador].placa_bus,
+punto:result.rows[contador].punto,
+punto_siguiente: ps,
+distancia_kilometros:result.rows[contador].distancia_kilometro
+}
+socket.emit('nuevaruta', rutajson);	
+contador++;
+}
+
+ }
+    })
+var rutajson={}
 });
 
   });
