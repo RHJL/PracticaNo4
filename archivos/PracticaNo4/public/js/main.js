@@ -126,14 +126,14 @@ viaje_final:$('#cliente_info_viaje_final input').val()
 socket.emit('reservar',contenido);
   });
 
-$botoncancelar.on('click', function() {
+$botonverfac.on('click', function() {
 var contenido={     
     nit:$('#ver_facturas_nit input').val(),
 };
 socket.emit('ver_facturas',contenido);
   });
 
-$botonverfac.on('click', function() {
+$botoncancelar.on('click', function() {
 var contenido={     
     numero:$('#cliente_cancelar_factura input').val(),
 };
