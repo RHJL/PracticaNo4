@@ -29,7 +29,7 @@ var $boton_modificart = $('.botonmodificart');
 var $boton_modificard = $('.botonmodificard');  
 var $botonreservar = $('.botonreservar'); 
 var $botonverfac = $('.botonverfac'); 
- 
+ var $botonverfac = $('.botoncancelar'); 
 var $servidornom = $('.servidornom'); 
 
 
@@ -113,6 +113,19 @@ viaje_final:$('#cliente_info_viaje_final input').val()
 socket.emit('reservar',contenido);
   });
 
+$botonverfac.on('click', function() {
+var contenido={     
+    nit:$('#ver_facturas_nit input').val(),
+};
+socket.emit('ver_facturas',contenido);
+  });
+
+$botonverfac.on('click', function() {
+var contenido={     
+    numero:$('#cliente_cancelar_factura input').val(),
+};
+socket.emit('cancelarfac',contenido);
+  });
 
 $(function () {
     $(document).ready(function () {

@@ -176,6 +176,49 @@ client.query("INSERT INTO factura(costo,estado,fecha,id_ruta_punto_inicio,id_rut
     })
 });
 
+socket.on('cancelarfac',function (data){
+var modificacion="UPDATE factura SET estado = 'cancelada' WHERE  id_factura= '"+data.numero+"';";
+client.query(modificacion);
+});
+
+socket.on('ver_factuas',function (data){
+var encabezadojson={
+numero_factura:'Numero de la factura ',
+nombre_cliente:'Nombre del cliente',
+nombre_ruta:'Nombre de la ruta',
+viaje:'Numero_viaje',
+punto:'Punto de inicio',
+punto_siguiente: 'Punto de destino',
+distancia_kilometros:'Distancia en kilometros',
+Costo:'Distancia en kilometros'
+}
+socket.emit('nuevaruta', encabezadojson);
+var query = client.query("select distinct t.nombre_ruta,t.numero_punto, t.placa_bus, t.punto1 as punto,p.nombre as punto_siguiente,t.distancia_kilometro from  (select distinct rp.id_ruta,rp.numero_punto,rp.id_punto_siguiente,r.nombre as nombre_ruta, b.placa as placa_bus, p.nombre as punto1, rp.distancia_kilometro from ruta r,bus b,punto p, ruta_punto rp where rp.id_ruta=r.id_ruta and b.id_bus=r.id_bus and p.id_punto=rp.id_punto) t left join punto p on p.id_punto=t.id_punto_siguiente order by t.nombre_ruta;", function(err, result) {
+if(result.rows.length!=0){
+var contador=0;
+while(contador<result.rows.length){
+if(result.rows[contador].punto_siguiente==null){
+var ps='Fin';
+}
+else {
+ps=result.rows[contador].punto_siguiente;
+}
+var rutajson={
+nombre_ruta:result.rows[contador].nombre_ruta,
+placa_bus:result.rows[contador].placa_bus,
+viaje:result.rows[contador].numero_punto,
+punto:result.rows[contador].punto,
+punto_siguiente: ps,
+distancia_kilometros:result.rows[contador].distancia_kilometro
+}
+socket.emit('nuevaruta', rutajson);	
+contador++;
+}
+
+ }
+    })
+});
+
   });
   
   

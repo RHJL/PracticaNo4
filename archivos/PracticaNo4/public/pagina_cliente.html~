@@ -132,11 +132,11 @@
         <div id="slideshow_area">
         <div class="container">
         <div id="bottom_content">
-<section id="ver_facturas">
-          <input name="ver_facturas" size="120" type="text" placeholder="Escriba su nit" />
+<section id="ver_facturas_nit">
+          <input name="ver_facturas_nit" size="120" type="text" placeholder="Escriba su nit" />
  </section>
 <div id="ver_fac">
-<button type="submit" class="botonverfac">Tomar boleto</button>
+<button type="submit" class="botonverfac">Ver facturas</button>
 </div>
             <table class="tablap" BORDER=1 WIDTH=300 style="background:#0A4A82; color:white;"></table>
         </div> <!-- END #bottom_content -->
