@@ -181,6 +181,24 @@ var modificacion="UPDATE factura SET estado = 'cancelada' WHERE  id_factura= '"+
 client.query(modificacion);
 });
 
+
+socket.on('nuevaruta',function (data){
+var query = client.query("SELECT id_bus FROM bus where placa='"+data.bus+"';", function(err, result) {
+if(result.rows.length!=0){
+	id_bus=result.rows[0].id_bus;
+client.query("INSERT INTO ruta(nombre,descripcion,id_bus,costo_ruta_quetzales) values($1, $2,$3,$4)", [data.nombre,data.descripcion,id_bus,data.costo]); }
+    })
+});
+
+socket.on('nuevopunto',function (data){
+console.log(data.descripcion);
+client.query("INSERT INTO punto(nombre,lugar,descripcion) values($1, $2,$3);", [data.nombre,data.lugar,data.descripcion]);
+});
+
+socket.on('nuevoviaje',function (data){
+client.query("INSERT INTO ruta_punto(hora_inicio,hora_fin,descripcion,numero_punto,distancia_kilometro,id_ruta,id_punto,id_punto_siguiente) values($1, $2,$3,$4,$5,$6,$7,$8)", [data.hora_inicio,data.hora_fin,data.descripcion,data.numero_punto,data.distancia_kilometro,data.id_ruta,data.id_punto,data.id_punto_siguiente]);
+});
+
 socket.on('ver_factuas',function (data){
 var encabezadojson={
 numero_factura:'Numero de la factura ',
@@ -189,7 +207,7 @@ nombre_ruta:'Nombre de la ruta',
 viaje:'Numero_viaje',
 punto:'Punto de inicio',
 punto_siguiente: 'Punto de destino',
-distancia_kilometros:'Distancia en kilometros'
+distancia_kilometros:'Distancia en kilometros',
 Costo:'Distancia en kilometros'
 }
 socket.emit('nuevaruta', encabezadojson);

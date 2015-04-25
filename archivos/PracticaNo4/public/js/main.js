@@ -16,11 +16,13 @@ var $tablap = $('.tablap'); // Messages area
 var $paginai = $('.pagina.inicial'); // pagina inical
 var $pagina1 = $('.pagina1'); // pagina inical
 var $pagina2 = $('.pagina2');
-var $paginatabla = $('.paginabuses'); // pagina inical
+var $paginabuses = $('.paginabuses'); 
+var $paginarutas = $('.paginarutas');
 var $botonp = $('.botonp0'); 
 var $botonvt = $('.botonp1'); 
 var $botonvet = $('.botonp2'); 
 var $botonfac = $('.botonp11'); 
+var $botonrutas = $('.botonp12'); 
 var $botonab = $('.botonab'); 
 var $bus_nombre=$('.bus_nombre'); 
 var $bus_tipo=$('.bus_tipo'); 
@@ -29,7 +31,10 @@ var $boton_modificart = $('.botonmodificart');
 var $boton_modificard = $('.botonmodificard');  
 var $botonreservar = $('.botonreservar'); 
 var $botonverfac = $('.botonverfac'); 
- var $botonverfac = $('.botoncancelar'); 
+ var $botoncancelar = $('.botoncancelar'); 
+ var $botonnuevaruta = $('.botonnuevaruta'); 
+var $botonnuevopunto = $('.botonnuevopunto');
+var $botonrutapunto = $('.botonrutapunto');  
 var $servidornom = $('.servidornom'); 
 
 
@@ -39,36 +44,44 @@ var libre=0;
 $botonp.on('click', function() {
 socket.emit('Cerrar');
     $paginai.show();
-      $pagina1.fadeOut();
+ $pagina1.fadeOut();
 $pagina2.fadeOut();
-$paginatabla.fadeOut();
+$paginarutas.fadeOut();
+$paginabuses.fadeOut();
   });
 
 $botonvt.on('click', function() {
 socket.emit('Rutas');
-$tweets.empty();
-$info.empty();
-$popu.empty();
-    $paginai.fadeOut();
-      $pagina1.show();
+$paginai.fadeOut();
+$pagina1.show();
 $pagina2.fadeOut();
-$paginatabla.fadeOut();
+$paginarutas.fadeOut();
+$paginabuses.fadeOut();
   });
 
 $botonvet.on('click', function() {
       $paginai.fadeOut();
       $pagina1.fadeOut();
 $pagina2.fadeOut();
-$paginatabla.show();
+$paginarutas.fadeOut();
+$paginabuses.show();
   });
 
 $botonfac.on('click', function() {
       $paginai.fadeOut();
       $pagina1.fadeOut();
-$paginatabla.fadeOut();
+$paginabuses.fadeOut();
+$paginarutas.fadeOut();
 $pagina2.show();
   });
 
+$botonrutas.on('click', function() {
+      $paginai.fadeOut();
+      $pagina1.fadeOut();
+$paginabuses.fadeOut();
+$pagina2.fasdeOut();
+$paginarutas.show();
+  });
 
 $botonab.on('click', function() {
 var contenido={     
@@ -113,7 +126,7 @@ viaje_final:$('#cliente_info_viaje_final input').val()
 socket.emit('reservar',contenido);
   });
 
-$botonverfac.on('click', function() {
+$botoncancelar.on('click', function() {
 var contenido={     
     nit:$('#ver_facturas_nit input').val(),
 };
@@ -125,6 +138,39 @@ var contenido={
     numero:$('#cliente_cancelar_factura input').val(),
 };
 socket.emit('cancelarfac',contenido);
+  });
+
+$botonnuevaruta.on('click', function() {
+var contenido={     
+    nombre: $('#nueva_ruta_nombre input').val(),
+    descripcion:$('#nueva_ruta_descrpcion input').val(),
+bus:$('#nueva_ruta_bus input').val(),
+costo:$('#nueva_ruta_costo input').val(),
+};
+socket.emit('nuevaruta',contenido);
+  });
+
+$botonnuevopunto.on('click', function() {
+var contenido={     
+    nombre: $('#nuevo_punto_nombre input').val(),
+    lugar:$('#nuevo_punto_lugar input').val(),
+descripcion:$('#nuevo_punto_descripcion input').val()
+};
+socket.emit('nuevopunto',contenido);
+  });
+
+$botonrutapunto.on('click', function() {
+var contenido={     
+    hora_inicio: $('#viaje_hora_inicio input').val(),
+    hora_fin:$('#viaje_hora_fin input').val(),
+descripcion:$('#nuevo_viaje_descripcion input').val(),
+numero_punto:$('#numero_punto input').val(),
+    distancia: $('#distancia_a_recorrer input').val(),
+    id_ruta:$('#codigo_ruta input').val(),
+id_punto:$('#codigo_punto input').val(),
+id_punto_siguiente:$('#codigo_punto_siguiente input').val(),
+};
+socket.emit('nuevoviaje',contenido);
   });
 
 $(function () {

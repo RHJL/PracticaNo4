@@ -23,6 +23,7 @@
                 <li class="first_list"><a href="index.html" class="main_menu_first main_current">Principal</a></li>
                 <li class="first_list"><button type="submit" class="botonp1">Administrar rutas</button></li>
                 <li class="first_list"><button type="submit" class="botonp2">Administrar buses</button>
+		<li class="first_list"><button type="submit" class="botonp12">Crear rutas</button>
                 </li>
                
             </ul>
@@ -71,6 +72,7 @@
                 <li class="first_list"><button type="submit" class="botonp0">Principal</button></li>
                 <li class="first_list">Administrar rutas</li>
                 <li class="first_list"><button type="submit" class="botonp2">Administrar buses</button>
+		<li class="first_list"><button type="submit" class="botonp12">Crear rutas</button>
                 </li>
                
             </ul>
@@ -95,10 +97,9 @@
             
             <div id="footer_explore" class="footer_info">
                 
-                <h4>Creadores</h4>
+                <h4>Creador</h4>
                 <ul>
                     <li>Rodrigo Antonio Herrera de León</li>
-                    <li>Jordy Alexander González Catalán</li>
                 </ul> 
             </div> <!-- END #footer_about -->
     
@@ -116,6 +117,7 @@
                 <li class="first_list"><button type="submit" class="botonp0">Principal</a></li>
 		<li class="first_list"><button type="submit" class="botonp1">Administrar rutas</button></li>
                 <li class="first_list">Administrar buses</li>
+		<li class="first_list"><button type="submit" class="botonp12">Crear rutas</button>
                 </li>
                
             </ul>
@@ -164,6 +166,108 @@
 </section>
 <div id="bus_modificard">
 <button type="submit" class="botonmodificard">Modificar descripcion de bus</button>
+</div>
+
+        </div> <!-- END #bottom_content -->
+    </div> <!-- END #main_content -->
+    <div id="footer">
+        <div class="container">
+            <div id="footer_about" class="footer_info">
+            </div> <!-- END #footer_about -->
+            
+            <div id="footer_explore" class="footer_info">
+                
+                <h4>Creadores</h4>
+                <ul>
+                    <li>Rodrigo Antonio Herrera de León</li>
+                </ul> 
+            </div> <!-- END #footer_about -->
+ </li>
+<li class="paginarutas">
+    <div id="header">
+        
+        <div class="container">
+        
+        <h1><a href="index.html">Administracion de rutas y buses</a></h1>
+        
+        <div id="main_menu"  style="position:relative; top:20px; left:-40px;" >
+        
+            <ul>
+                <li class="first_list"><button type="submit" class="botonp0">Principal</a></li>
+		<li class="first_list"><button type="submit" class="botonp1">Administrar rutas</button></li>
+		<li class="first_list"><button type="submit" class="botonp2">Administrar buses</button>
+                <li class="first_list">Crear rutas</li>
+                </li>
+               
+            </ul>
+        
+        </div> <!-- END #main_menu -->
+    
+        </div> <!-- END .container -->
+    
+    </div> <!-- END #header -->
+    
+    <div id="main_content">   
+        <div id="slideshow_area">
+        <div class="container">
+        <div id="bottom_content">
+            <section id="nueva_ruta_nombre">
+          <input name="bus_nombre" size="50" type="text" placeholder="Escriba el nombre de la ruta" />
+      </section>
+<section id="nueva_ruta_descrpcion">
+          <input name="bus_tipo" size="120" type="text" placeholder="Escriba una descripcion de la ruta" />
+ </section>
+<section id="nueva_ruta_bus">
+          <input name="bus_des" size="50" type="text" placeholder="Escriba la placa del del bus de la ruta" />
+ </section>
+<section id="nueva_ruta_costo">
+          <input name="bus_des" size="50" type="text" placeholder="Escriba el costo por kilometro de la ruta" />
+ </section>
+<div id="bus_info">
+<button type="submit" class="botonnuevaruta">Añadir ruta</button>
+</div>
+</br>
+<section id="nuevo_punto_nombre">
+<input name="bus_placa2" size="50" type="text" placeholder="Introduza el nombre del nuevo punto" />
+</section>
+<section id="nuevo_punto_lugar">
+<input name="bus_tipo2" size="50" type="text" placeholder="Introduzca el lugar donde esta el nuevo punto" />
+</section>
+<section id="nuevo_punto_descripcion">
+<input name="bus_tipo2" size="120" type="text" placeholder="Introduzca la descripcion del nuevo punto" />
+</section>
+<div id="nuevo_punto_boton">
+<button type="submit" class="botonnuevopunto">Crear nuevo punto</button>
+</div>
+</br>
+</br>
+</br>
+<section id="viaje_hora_inicio">
+<input name="bus_placa2" size="50" type="text" placeholder="Introduza la hora de inicio del  viaje (hh/mm/ss) " />
+</section>
+<section id="viaje_hora_fin">
+<input name="bus_tipo2" size="50" type="text" placeholder="Introduzca la hora de fin del viaje (hh/mm/ss)" />
+</section>
+<section id="nuevo_viaje_descripcion">
+<input name="bus_tipo2" size="120" type="text" placeholder="Introduzca la descripcion del nuevo punto" />
+</section>
+<section id="numero_punto">
+<input name="bus_tipo2" size="50" type="text" placeholder="Introduzca el numero de viaje dentro de la ruta" />
+</section>
+<section id="distancia_a_recorrer">
+<input name="bus_tipo2" size="50" type="text" placeholder="Introduzca el numero de kilometros a recorrer en el viaje" />
+</section>
+<section id="codigo_ruta">
+<input name="bus_tipo2" size="50" type="text" placeholder="Introduzca el codigo de la ruta perteneciente al viaje" />
+</section>
+<section id="codigo_punto">
+<input name="bus_tipo2" size="50" type="text" placeholder="Introduzca codigo del punto de inicio" />
+</section>
+<section id="codigo_punto_siguiente">
+<input name="bus_tipo2" size="50" type="text" placeholder="Introduzca el codigo del punto de fin" />
+</section>
+<div id="ruta_punto_boton">
+<button type="submit" class="botonrutapunto">Añadir viaje a ruta</button>
 </div>
 
         </div> <!-- END #bottom_content -->
