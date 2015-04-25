@@ -21,8 +21,9 @@
         
             <ul>
                 <li class="first_list"><a href="index.html" class="main_menu_first main_current">Principal</a></li>
-                <li class="first_list"><button type="submit" class="botonp1">Administrar rutas</button></li>
-                <li class="first_list"><button type="submit" class="botonp2">Administrar buses</button>
+                <li class="first_list"><button type="submit" class="botonp1">Consulta de rutas</button></li>
+		<li class="first_list"><button type="submit" class="botonp11">Consultar facturas</button></li>
+                <li class="first_list"><button type="submit" class="botonp2">Reserva y compra de pasajes</button>
                 </li>
                
             </ul>
@@ -63,14 +64,15 @@
         
         <div class="container">
         
-        <h1><a href="index.html">Administracion de rutas y buses</a></h1>
+        <h1><a href="index.html">Consultar rutas y buses</a></h1>
         
         <div id="main_menu"  style="position:relative; top:20px; left:-40px;" >
         
             <ul>
                 <li class="first_list"><button type="submit" class="botonp0">Principal</button></li>
-                <li class="first_list">Administrar rutas</li>
-                <li class="first_list"><button type="submit" class="botonp2">Administrar buses</button>
+                <li class="first_list">Consultar rutas</li>
+		<li class="first_list"><button type="submit" class="botonp11">Consultar facturas</button></li>
+                <li class="first_list"><button type="submit" class="botonp2">Reserva y compra de pasajes</button>
                 </li>
                
             </ul>
@@ -95,10 +97,60 @@
             
             <div id="footer_explore" class="footer_info">
                 
-                <h4>Creadores</h4>
+                <h4>Creador</h4>
                 <ul>
                     <li>Rodrigo Antonio Herrera de León</li>
-                    <li>Jordy Alexander González Catalán</li>
+                </ul> 
+            </div> <!-- END #footer_about -->
+    
+ </li>
+<li class="pagina2">
+<div id="header">
+        
+        <div class="container">
+        
+        <h1><a href="index.html">Consultar facturas</a></h1>
+        
+        <div id="main_menu"  style="position:relative; top:20px; left:-40px;" >
+        
+            <ul>
+                <li class="first_list"><button type="submit" class="botonp0">Principal</button></li>
+		<li class="first_list"><button type="submit" class="botonp1">Consultar rutas</button></li>
+                <li class="first_list">Consultar facturas</li>
+                <li class="first_list"><button type="submit" class="botonp2">Reserva y compra de pasajes</button>
+                </li>
+               
+            </ul>
+        
+        </div> <!-- END #main_menu -->
+    
+        </div> <!-- END .container -->
+    
+    </div> <!-- END #header -->
+    
+    <div id="main_content">   
+        <div id="slideshow_area">
+        <div class="container">
+        <div id="bottom_content">
+<section id="ver_facturas">
+          <input name="ver_facturas" size="120" type="text" placeholder="Escriba su nit" />
+ </section>
+<div id="ver_fac">
+<button type="submit" class="botonverfac">Tomar boleto</button>
+</div>
+            <table class="tablap" BORDER=1 WIDTH=300 style="background:#0A4A82; color:white;"></table>
+        </div> <!-- END #bottom_content -->
+    </div> <!-- END #main_content -->
+    <div id="footer">
+        <div class="container">
+            <div id="footer_about" class="footer_info">
+            </div> <!-- END #footer_about -->
+            
+            <div id="footer_explore" class="footer_info">
+                
+                <h4>Creador</h4>
+                <ul>
+                    <li>Rodrigo Antonio Herrera de León</li>
                 </ul> 
             </div> <!-- END #footer_about -->
     
@@ -114,8 +166,9 @@
         
             <ul>
                 <li class="first_list"><button type="submit" class="botonp0">Principal</a></li>
-		<li class="first_list"><button type="submit" class="botonp1">Administrar rutas</button></li>
-                <li class="first_list">Administrar buses</li>
+		<li class="first_list"><button type="submit" class="botonp1">Consultar rutas</button></li>
+		<li class="first_list"><button type="submit" class="botonp11">Consultar facturas</button></li>
+                <li class="first_list">Reserva y compra de pasajes</li>
                 </li>
                
             </ul>
@@ -130,41 +183,26 @@
         <div id="slideshow_area">
         <div class="container">
         <div id="bottom_content">
-            <section id="bus_info_nombre">
-          <input name="bus_nombre" size="50" type="text" placeholder="Escriba la placa del bus" />
+            <section id="cliente_info_nombre">
+          <input name="bus_nombre" size="50" type="text" placeholder="Escriba su nombre" />
       </section>
-<section id="bus_info_tipo">
-          <input name="bus_tipo" size="50" type="text" placeholder="Escriba el tipo del bus" />
+<section id="cliente_info_nit">
+          <input name="cliente_nit" size="50" type="text" placeholder="Escriba su numero de nit" />
  </section>
-<section id="bus_info_des">
-          <input name="bus_des" size="120" type="text" placeholder="Escriba una descripcion del bus" />
+<section id="cliente_info_ruta">
+          <input name="cliente_ruta" size="120" type="text" placeholder="Escriba la ruta" />
+ </section>
+<section id="cliente_info_viaje_inicial">
+          <input name="cliente_punto_inicial" size="120" type="text" placeholder="Escriba el primer viaje" />
+ </section>
+<section id="cliente_info_viaje_final">
+          <input name="cliente_punto_final" size="120" type="text" placeholder="Escriba el ultimo viaje" />
  </section>
 <div id="bus_info">
-<button type="submit" class="botonab">Añadir bus</button>
+<button type="submit" class="botonreservar">Tomar boleto</button>
 </div>
-</br>
-<section id="bus_placa_eliminar">
-<input name="bus_placa1" size="50" type="text" placeholder="Escriba la placa del bus a eliminar" />
-</section>
-<div id="bus_eliminar">
-<button type="submit" class="botoneliminar">Eliminar bus</button>
-</div>
-</br>
-<section id="bus_placa_modificar">
-<input name="bus_placa2" size="50" type="text" placeholder="Introduza la placa del bus a modifcar" />
-</section>
-<section id="bus_tipo_modificar">
-<input name="bus_tipo2" size="50" type="text" placeholder="Introduzca el nuevo tipo de bus" />
-</section>
-<div id="bus_modificart">
-<button type="submit" class="botonmodificart">Modificar tipo de bus</button>
-</div>
-<section id="bus_des_modificar">
-<input name="bus_des2" size="50" type="text" placeholder="Introduzca la nueva descripciòn del bus" />
-</section>
-<div id="bus_modificard">
-<button type="submit" class="botonmodificard">Modificar descripcion de bus</button>
-</div>
+
+
 
         </div> <!-- END #bottom_content -->
     </div> <!-- END #main_content -->

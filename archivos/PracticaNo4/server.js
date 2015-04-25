@@ -76,12 +76,13 @@ socket.on('Rutas',function (){
 var encabezadojson={
 nombre_ruta:'Nombre de la ruta',
 placa_bus:'Placa del bus',
+viaje:'Numero_viaje',
 punto:'Punto de inicio',
 punto_siguiente: 'Punto de destino',
 distancia_kilometros:'Distancia en kilometros'
 }
 socket.emit('nuevaruta', encabezadojson);
-var query = client.query("select distinct t.nombre_ruta, t.placa_bus, t.punto1 as punto,p.nombre as punto_siguiente,t.distancia_kilometro from  (select distinct rp.id_ruta,rp.id_punto_siguiente,r.nombre as nombre_ruta, b.placa as placa_bus, p.nombre as punto1, rp.distancia_kilometro from ruta r,bus b,punto p, ruta_punto rp where rp.id_ruta=r.id_ruta and b.id_bus=r.id_bus and p.id_punto=rp.id_punto) t left join punto p on p.id_punto=t.id_punto_siguiente order by t.nombre_ruta;", function(err, result) {
+var query = client.query("select distinct t.nombre_ruta,t.numero_punto, t.placa_bus, t.punto1 as punto,p.nombre as punto_siguiente,t.distancia_kilometro from  (select distinct rp.id_ruta,rp.numero_punto,rp.id_punto_siguiente,r.nombre as nombre_ruta, b.placa as placa_bus, p.nombre as punto1, rp.distancia_kilometro from ruta r,bus b,punto p, ruta_punto rp where rp.id_ruta=r.id_ruta and b.id_bus=r.id_bus and p.id_punto=rp.id_punto) t left join punto p on p.id_punto=t.id_punto_siguiente order by t.nombre_ruta;", function(err, result) {
 if(result.rows.length!=0){
 var contador=0;
 while(contador<result.rows.length){
@@ -94,6 +95,7 @@ ps=result.rows[contador].punto_siguiente;
 var rutajson={
 nombre_ruta:result.rows[contador].nombre_ruta,
 placa_bus:result.rows[contador].placa_bus,
+viaje:result.rows[contador].numero_punto,
 punto:result.rows[contador].punto,
 punto_siguiente: ps,
 distancia_kilometros:result.rows[contador].distancia_kilometro
@@ -104,7 +106,74 @@ contador++;
 
  }
     })
-var rutajson={}
+});
+socket.on('reservar',function (data){
+
+var query = client.query("SELECT id_cliente FROM cliente where nit='"+data.nit+"';", function(err, result) {
+if(result.rows.length!=0){
+	var id_cliente=result.rows[0].id_cliente; 
+console.log(id_cliente);
+var query = client.query("SELECT r.id_ruta,r.costo_ruta_quetzales FROM ruta r where r.nombre='"+data.ruta+"';", function(err, result) {
+if(result.rows.length!=0){
+var id_ruta=result.rows[0].id_ruta;
+var costo=result.rows[0].costo_ruta_quetzales;
+console.log(id_ruta);
+console.log(data.viaje_inicial);
+var query = client.query("SELECT rp.id_ruta_punto FROM ruta_punto rp where rp.id_ruta="+id_ruta+" and rp.numero_punto="+data.viaje_inicial+";", function(err, result) {
+if(result.rows.length!=0){
+var id_ruta_punto1=result.rows[0].id_ruta_punto;
+console.log(id_ruta_punto1);	
+var query = client.query("SELECT rp.id_ruta_punto FROM ruta_punto rp where rp.id_ruta="+id_ruta+" and rp.numero_punto="+data.viaje_final+";", function(err, result) {
+if(result.rows.length!=0){
+var id_ruta_punto2=result.rows[0].id_ruta_punto;
+console.log(id_ruta_punto2);
+	var query = client.query("SELECT rp.id_ruta, sum(rp.distancia_kilometro) as total_distancia FROM ruta_punto rp where rp.id_ruta="+id_ruta+" and rp.numero_punto>="+data.viaje_inicial+" and rp.numero_punto<="+data.viaje_final+" group by rp.id_ruta;", function(err, result) {
+if(result.rows.length!=0){
+var total_distancia=result.rows[0].total_distancia;
+var costo_total=costo*total_distancia;
+client.query("INSERT INTO factura(costo,estado,fecha,id_ruta_punto_inicio,id_ruta_punto_fin,id_cliente) values($1, $2,$3,$4,$5,$6)", [costo_total,'sin cancelar','now()',id_ruta_punto1,id_ruta_punto2,id_cliente]);
+    }})
+
+    }})
+    }})
+    }})
+	
+}
+else{
+client.query("INSERT INTO cliente(nombre,nit) values($1, $2)", [data.nombre,data.nit]);
+var query = client.query("SELECT id_cliente FROM cliente where nit='"+data.nit+"';", function(err, result) {
+if(result.rows.length!=0){
+	var id_cliente=result.rows[0].id_cliente; 
+console.log(id_cliente);
+var query = client.query("SELECT r.id_ruta,r.costo_ruta_quetzales FROM ruta r where r.nombre='"+data.ruta+"';", function(err, result) {
+if(result.rows.length!=0){
+var id_ruta=result.rows[0].id_ruta;
+var costo=result.rows[0].costo_ruta_quetzales;
+console.log(id_ruta);
+var query = client.query("SELECT rp.id_ruta_punto FROM ruta_punto rp where rp.id_ruta="+id_ruta+" and rp.numero_punto="+data.viaje_inicial+";", function(err, result) {
+if(result.rows.length!=0){
+var id_ruta_punto1=result.rows[0].id_ruta_punto;
+console.log(id_ruta_punto1);	
+var query = client.query("SELECT rp.id_ruta_punto FROM ruta_punto rp where rp.id_ruta="+id_ruta+" and rp.numero_punto="+data.viaje_final+";", function(err, result) {
+if(result.rows.length!=0){
+var id_ruta_punto2=result.rows[0].id_ruta_punto;
+	var query = client.query("SELECT rp.id_ruta, sum(rp.distancia_kilometro) as total_distancia FROM ruta_punto rp where rp.id_ruta="+id_ruta+" and rp.numero_punto>="+data.viaje_inicial+" and rp.numero_punto<="+data.viaje_final+" group by rp.id_ruta;", function(err, result) {
+if(result.rows.length!=0){
+var total_distancia=result.rows[0].total_distancia;
+var costo_total=costo*total_distancia;
+client.query("INSERT INTO factura(costo,estado,fecha,id_ruta_punto_inicio,id_ruta_punto_fin,id_cliente) values($1, $2,$3,$4,$5,$6)", [costo_total,'sin cancelar','now()',id_ruta_punto1,id_ruta_punto2,id_cliente]);
+    }})
+
+    }})
+    }})
+    }})
+	
+}
+
+    })
+
+}
+    })
 });
 
   });

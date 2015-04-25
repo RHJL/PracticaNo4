@@ -15,16 +15,20 @@ var $popu = $('.popu'); // Messages area
 var $tablap = $('.tablap'); // Messages area
 var $paginai = $('.pagina.inicial'); // pagina inical
 var $pagina1 = $('.pagina1'); // pagina inical
+var $pagina2 = $('.pagina2');
 var $paginatabla = $('.paginabuses'); // pagina inical
 var $botonp = $('.botonp0'); 
 var $botonvt = $('.botonp1'); 
 var $botonvet = $('.botonp2'); 
+var $botonfac = $('.botonp11'); 
 var $botonab = $('.botonab'); 
 var $bus_nombre=$('.bus_nombre'); 
 var $bus_tipo=$('.bus_tipo'); 
 var $boton_eliminar = $('.botoneliminar'); 
 var $boton_modificart = $('.botonmodificart');
 var $boton_modificard = $('.botonmodificard');  
+var $botonreservar = $('.botonreservar'); 
+var $botonverfac = $('.botonverfac'); 
  
 var $servidornom = $('.servidornom'); 
 
@@ -36,6 +40,7 @@ $botonp.on('click', function() {
 socket.emit('Cerrar');
     $paginai.show();
       $pagina1.fadeOut();
+$pagina2.fadeOut();
 $paginatabla.fadeOut();
   });
 
@@ -46,14 +51,24 @@ $info.empty();
 $popu.empty();
     $paginai.fadeOut();
       $pagina1.show();
+$pagina2.fadeOut();
 $paginatabla.fadeOut();
   });
 
 $botonvet.on('click', function() {
       $paginai.fadeOut();
       $pagina1.fadeOut();
+$pagina2.fadeOut();
 $paginatabla.show();
   });
+
+$botonfac.on('click', function() {
+      $paginai.fadeOut();
+      $pagina1.fadeOut();
+$paginatabla.fadeOut();
+$pagina2.show();
+  });
+
 
 $botonab.on('click', function() {
 var contenido={     
@@ -87,6 +102,17 @@ var contenido={
 socket.emit('bus_modificard',contenido);
   });
 
+$botonreservar.on('click', function() {
+var contenido={     
+    nombre: $('#cliente_info_nombre input').val(),
+    nit:$('#cliente_info_nit input').val(),
+ruta:$('#cliente_info_ruta input').val(),
+viaje_inicial:$('#cliente_info_viaje_inicial input').val(),
+viaje_final:$('#cliente_info_viaje_final input').val()
+};
+socket.emit('reservar',contenido);
+  });
+
 
 $(function () {
     $(document).ready(function () {
@@ -116,6 +142,8 @@ var $nombrer=$('<td  class="Nombrer"/>')
       .text(data.nombre_ruta);
 var $placabus=$('<td class="Bus"/>')
       .text(data.placa_bus);
+var $viaje=$('<td class="viaje"/>')
+      .text(data.viaje);
 var $punto=$('<td class="punto"/>')
       .text(data.punto);
 var $punto2=$('<td class="punto2"/>')
@@ -125,6 +153,7 @@ var $distancia=$('<td class="distancia"/>')
 var $rutafila = $('<tr class="Ruta"/>');
 $rutafila.append($nombrer);
 $rutafila.append($placabus);
+$rutafila.append($viaje);
 $rutafila.append($punto);
 $rutafila.append($punto2);
 $rutafila.append($distancia);
